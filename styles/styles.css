@@ -1,6 +1,22 @@
 #innerCon
 {
     margin: 100px;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    padding : 20px;
+    border-radius: 1%;
+}
+
+#mybutton
+{
+    border-radius: 5%;
+}
+
+#firstPara
+{
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 h1
@@ -8,7 +24,12 @@ h1
     text-align: center;
 }
 
+h3
+{
+    text-align: center;
+}
+
 img
 {
-    border-radius: 1%;
+    border-radius: 2%;
 }
