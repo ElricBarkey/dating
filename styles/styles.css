@@ -1,6 +1,6 @@
 #innerCon
 {
-    margin: 100px;
+    margin: 50px 100px 100px;
     border-color: lightgray;
     border-style: solid;
     border-width: 1px;
@@ -32,4 +32,9 @@ h3
 img
 {
     border-radius: 2%;
+}
+
+nav
+{
+    background-color: lightgray;
 }
