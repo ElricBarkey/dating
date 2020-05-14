@@ -29,7 +29,12 @@
                 <br>
 
                 <label><strong>State</strong></label><br>
-                <input class="form-control" type="text" id="state" name="state">
+
+                <select id="states">
+                    <repeat group="{{@myStates }}" value="{{ @state }}">
+                        <option value="{{ @state}}"> {{ @state}}</option>
+                    </repeat>
+                </select>
                 <br>
 
 
