@@ -64,7 +64,14 @@ $f3->route('GET|POST /personal', function($f3)
             $f3->reroute('profile');
             session_destroy();
         }
+
     }
+
+    $f3->set('fname', $_POST['fname']);
+    $f3->set('lname', $_POST['lname']);
+    $f3->set('phone', $_POST['phone']);
+    $f3->set('gender', $_POST['gender']);
+    $f3->set('age', $_POST['age']);
 
     $view = new Template();
     echo $view->render('views/personalInfo.html');

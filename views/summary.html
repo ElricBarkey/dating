@@ -19,32 +19,29 @@
 
                     <tbody>
                         <tr>
-                            <td>Name: </td>
+                            <td>Name:{{@SESSION.fname}} {{@SESSION.lname}}</td>
                         </tr>
                         <tr>
-                            <td>Gender:</td>
+                            <td>Gender:{{@SESSION.gender}}</td>
                         </tr>
                         <tr>
-                            <td>Age: {{ @age}}</td>
+                            <td>Age: {{ @SESSION.age}}</td>
                         </tr>
                         <tr>
-                            <td>Phone: {{ @phone}}</td>
+                            <td>Phone: {{ @SESSION.phone}}</td>
                         </tr>
                         <tr>
-                            <td>Email: {{ @email}}</td>
+                            <td>Email: {{ @SESSION.email}}</td>
                         </tr>
                         <tr>
-                            <td>State: {{ @state}}</td>
+                            <td>State:{{ @SESSION.selectStates}}</td>
                         </tr>
                         <tr>
-                            <td>Seeking: {{ @seeking}}</td>
-                        </tr>
-                        <tr>
-                            <td>Bio: {{ @bio}}</td>
+                            <td>Seeking: {{ @SESSION.seeking}}</td>
                         </tr>
 
                         <tr>
-                            <td>Interests:</td>
+                            <td>Interests: {{implode(@SESSION.indoor, ", ")}}, {{implode(@SESSION.outdoor, ", ")}}</td>
                         </tr>
 
                     </tbody>
@@ -57,12 +54,13 @@
                 </div>
 
                 <label>Biography</label><br>
-                <p></p>
+                <p>{{ @SESSION.bio}}</p>
                 <br>
 
             </div>
             <div class="text-center col-md-12 col-lg-12">
-                <a class="btn btn-primary float-right" href="">Contact Me!</a>
+                <input class="btn btn-primary"
+                       type="button" value="Contact Me!">
             </div>
         </div>
     </div>
