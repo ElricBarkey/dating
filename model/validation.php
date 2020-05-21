@@ -1,10 +1,12 @@
 <?php
 
 
-    function validName($name)
+    function validName($fname,$lname)
     {
-        $name = str_replace(' ', '', $name);
-        return !empty($name) && ctype_alpha($name);
+        $fname = str_replace(' ', '', $fname);
+        $lname = str_replace(' ', '', $lname);
+
+        return !empty($fname) && !empty($lname) && ctype_alpha($fname) && ctype_alpha($lname);
     }
 
     function validAge($age)
@@ -16,7 +18,7 @@
     function validPhone($phone)
     {
         $phone = str_replace(' ', '', $phone);
-        return !empty($phone) && ctype_digit($phone) && sizeof($phone) === 10;
+        return !empty($phone) && ctype_digit($phone) && strlen($phone) === 10;
     }
 
     function validEmail($email)
