@@ -1,12 +1,16 @@
 <?php
 
 
-    function validName($fname,$lname)
+    function validFirstN($fname)
     {
         $fname = str_replace(' ', '', $fname);
-        $lname = str_replace(' ', '', $lname);
+        return !empty($fname)  && ctype_alpha($fname);
+    }
 
-        return !empty($fname) && !empty($lname) && ctype_alpha($fname) && ctype_alpha($lname);
+    function validLastN($lname)
+    {
+        $lname = str_replace(' ', '', $lname);
+        return !empty($lname) && ctype_alpha($lname);
     }
 
     function validAge($age)

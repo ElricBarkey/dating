@@ -28,21 +28,20 @@ $f3->route('GET|POST /personal', function($f3)
     {
         //var_dump($_POST);
 
-        if (!validName($_POST['fname'], $_POST['lname'])) {
+        if (!validFirstN($_POST['fname'])) {
 
             //Set an error variable in the F3 hive
             $f3->set('errors["fname"]', "Invalid First Name.");
+        }
+        if (!validLastN($_POST['lname'])) {
+
+            //Set an error variable in the F3 hive
             $f3->set('errors["lname"]', "Invalid Last Name.");
         }
         if (!validAge($_POST['age'])) {
 
             //Set an error variable in the F3 hive
             $f3->set('errors["age"]', "Invalid age.");
-        }
-        if (!validEmail($_POST['email'])) {
-
-            //Set an error variable in the F3 hive
-            $f3->set('errors["email"]', "Invalid email.");
         }
         if (!validPhone($_POST['phone'])) {
 
@@ -85,17 +84,26 @@ $f3->route('GET|POST /profile', function($f3)
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         //var_dump($_POST);
 
-        //store the data in the session array
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['seeking'] = $_POST['seeking'];
-        $_SESSION['bio'] = $_POST['bio'];
-        $_SESSION['selectStates'] = $_POST['selectStates'];
+        if (!validEmail($_POST['email'])) {
 
-        $f3->reroute('interests');
-        session_destroy();
+            //Set an error variable in the F3 hive
+            $f3->set('errors["email"]', "Invalid email.");
+        }
+
+        if (empty($f3->get('errors'))) {
+            //store the data in the session array
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['seeking'] = $_POST['seeking'];
+            $_SESSION['bio'] = $_POST['bio'];
+            $_SESSION['selectStates'] = $_POST['selectStates'];
+
+            $f3->reroute('interests');
+            session_destroy();
+        }
     }
 
     $f3->set('myStates', $state);
+    $f3->set('email', $_POST['email']);
 
     $view = new Template();
     echo $view->render('views/profile.html');
