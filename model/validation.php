@@ -28,7 +28,14 @@
     function validEmail($email)
     {
         $email = str_replace(' ', '', $email);
-         return !filter_var($email, FILTER_VALIDATE_EMAIL);
+         return !empty($email) &&
+             filter_var($email, FILTER_VALIDATE_EMAIL) != false;
+    }
+
+    function validState($state)
+    {
+        $state = str_replace(' ', '', $state);
+        return $state != "--" ;
     }
 
     function validOutdoor($outdoor)

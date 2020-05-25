@@ -25,7 +25,12 @@
             <div class="col-md-8 col-lg-8 form-group">
                 <form method="post" action="#">
                 <label><strong>Email</strong></label><br>
-                <input class="form-control" type="text" id="email" name="email">
+                <input class="form-control" type="text" id="email" name="email" value="{{@email}}">
+                    <span class="err">
+                        <check if="{{isset(@errors['email']) }}">
+                            {{@errors['email']}}
+                        </check>
+                    </span>
                 <br>
 
                 <label><strong>State</strong></label><br>
@@ -34,12 +39,18 @@
                         <option value="{{ @state}}"> {{ @state}}</option>
                     </repeat>
                 </select>
+                <span class="err">
+                    <check if="{{isset(@errors['selectStates']) }}">
+                        {{@errors['selectStates']}}
+                    </check>
+                </span>
                 <br>
-
+                <br>
 
                 <label><strong>Seeking</strong></label><br>
                 <input type="radio" id="male" name="seeking" value="male">
                 <label class="pr-2" for="male">Male</label>
+
                 <input type="radio" id="female" name="seeking" value="female">
                 <label for="female">Female</label><br>
 

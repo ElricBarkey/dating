@@ -69,7 +69,7 @@ $f3->route('GET|POST /personal', function($f3)
     $f3->set('fname', $_POST['fname']);
     $f3->set('lname', $_POST['lname']);
     $f3->set('phone', $_POST['phone']);
-    $f3->set('gender', $_POST['gender']);
+    //$f3->set('gender', $_POST['gender']);
     $f3->set('age', $_POST['age']);
 
     $view = new Template();
@@ -85,9 +85,13 @@ $f3->route('GET|POST /profile', function($f3)
         //var_dump($_POST);
 
         if (!validEmail($_POST['email'])) {
-
             //Set an error variable in the F3 hive
             $f3->set('errors["email"]', "Invalid email.");
+        }
+
+        if (!validState($_POST['selectStates'])) {
+            //Set an error variable in the F3 hive
+            $f3->set('errors["selectStates"]', "Invalid State.");
         }
 
         if (empty($f3->get('errors'))) {
@@ -104,6 +108,7 @@ $f3->route('GET|POST /profile', function($f3)
 
     $f3->set('myStates', $state);
     $f3->set('email', $_POST['email']);
+    $f3->set('state',  $_POST['selectStates']);
 
     $view = new Template();
     echo $view->render('views/profile.html');
