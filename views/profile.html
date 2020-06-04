@@ -48,10 +48,10 @@
                 <br>
 
                 <label><strong>Seeking</strong></label><br>
-                <input type="radio" id="male" name="seeking" value="male">
+                <input type="radio" id="male" name="seeking" value="male"<check if="{{ @seeking == 'male' }}">checked = 'checked' </check>>
                 <label class="pr-2" for="male">Male</label>
 
-                <input type="radio" id="female" name="seeking" value="female">
+                <input type="radio" id="female" name="seeking" value="female"<check if="{{ @seeking == 'female' }}">checked = 'checked' </check>>
                 <label for="female">Female</label><br>
 
                 <br>
@@ -63,7 +63,7 @@
             <div class="col-md-4 col-lg-4">
                 <div>
                     <label><strong>Biography</strong></label><br>
-                    <textarea class="form-control" rows="5" id="bio" name="bio"></textarea>
+                    <textarea class="form-control" rows="5" id="bio" name="bio">{{@bio}}</textarea>
                     <br>
                 </div>
 

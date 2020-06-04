@@ -4,11 +4,15 @@
   [
     {
       "name": "Elric Barkey",
-      "email": "tostrander@greenriver.edu"
+      "email": "ebarkey2@greenriver.edu"
     }
   ],
   "require":
   {
     "bcosca/fatfree-core": "dev-master"
+  },
+
+  "autoload": {
+    "classmap": ["classes/", "model/"]
   }
 }

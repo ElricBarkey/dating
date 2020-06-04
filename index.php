@@ -3,16 +3,18 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//start a session
-session_start();
-
 //require the auto load file
 require_once ("vendor/autoload.php");
 require_once ("model/data-layer.php");
 require_once ("model/validation.php");
 
+//start a session
+session_start();
+
+
 //instantiate the F3 Base class
 $f3 = Base::instance();
+
 
 //default route
 $f3->route('GET /', function()
@@ -53,12 +55,27 @@ $f3->route('GET|POST /personal', function($f3)
         //valid
         if (empty($f3->get('errors'))) {
             //store the data in the session array
-            $_SESSION['fname'] = $_POST['fname'];
-            $_SESSION['lname'] = $_POST['lname'];
-            $_SESSION['phone'] = $_POST['phone'];
-            $_SESSION['gender'] = $_POST['gender'];
-            $_SESSION['age'] = $_POST['age'];
 
+            if (!isset($_POST['premium'])){
+                $member = new Member($_POST['fname'], $_POST['lname'], $_POST['age'],$_POST['gender'],$_POST['phone']);
+
+                //track member type
+                $_SESSION['prem'] = 'reg';
+
+                //add member to session
+                $_SESSION['myMember'] = $member;
+                $f3->set('myMember', $member);
+
+            }
+
+            else {
+                $premium = new PremiumMember($_POST['fname'], $_POST['lname'], $_POST['age'],$_POST['gender'],$_POST['phone']);
+
+                $_SESSION['prem'] = 'prem';
+
+                $_SESSION['myMember'] = $premium;
+                $f3->set('myMember', $premium);
+           }
 
             $f3->reroute('profile');
             session_destroy();
@@ -69,8 +86,10 @@ $f3->route('GET|POST /personal', function($f3)
     $f3->set('fname', $_POST['fname']);
     $f3->set('lname', $_POST['lname']);
     $f3->set('phone', $_POST['phone']);
-    //$f3->set('gender', $_POST['gender']);
+    $f3->set('gender', $_POST['gender']);
     $f3->set('age', $_POST['age']);
+    $f3->set('premium', $_POST['premium']);
+    //var_dump($_POST);
 
     $view = new Template();
     echo $view->render('views/personalInfo.html');
@@ -96,19 +115,31 @@ $f3->route('GET|POST /profile', function($f3)
 
         if (empty($f3->get('errors'))) {
             //store the data in the session array
-            $_SESSION['email'] = $_POST['email'];
-            $_SESSION['seeking'] = $_POST['seeking'];
-            $_SESSION['bio'] = $_POST['bio'];
-            $_SESSION['selectStates'] = $_POST['selectStates'];
+            $_SESSION['myMember']->setEmail($_POST['email']);
+            $_SESSION['myMember']->setSeeking($_POST['seeking']);
+            $_SESSION['myMember']->setBio($_POST['bio']);
+            $_SESSION['myMember']->setState($_POST['selectStates']);
 
-            $f3->reroute('interests');
-            session_destroy();
+
+            if ($_SESSION['prem']==='prem')
+            {
+                $f3->reroute('interests');
+                session_destroy();
+            }
+
+            else{
+                $f3->reroute('summary');
+                session_destroy();
+            }
+
         }
     }
 
     $f3->set('myStates', $state);
     $f3->set('email', $_POST['email']);
     $f3->set('state',  $_POST['selectStates']);
+    $f3->set('seeking', $_POST['seeking']);
+    $f3->set('bio', $_POST['bio']);
 
     $view = new Template();
     echo $view->render('views/profile.html');
@@ -122,12 +153,9 @@ $f3->route('GET|POST /interests', function($f3)
 
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //var_dump($_POST);
 
-        //store the data in the session array
-        $_SESSION['indoor'] = $_POST['indoor'];
-        $_SESSION['outdoor'] = $_POST['outdoor'];
-
+        $_SESSION['myMember']->setInDoorInterests($_POST['indoor']);
+        $_SESSION['myMember']->setOutDoorInterests($_POST['outdoor']);
 
         $f3->reroute('summary');
         session_destroy();
